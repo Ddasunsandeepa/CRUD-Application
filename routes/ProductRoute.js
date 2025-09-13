@@ -1,63 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const Product = require("./models/productModels.js");
+const ProductController = require("../controllers/ProductController.js");
 
-router.post("/", async (req, res) => {
-  try {
-    console.log(req.body);
-    const product = await Product.create(req.body);
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({ message: "Server Error" });
-  }
-});
+router.post("/", ProductController.createProducts);
 
-app.get("/", async (req, res) => {
-  try {
-    console.log("Get request received");
-    const products = await Product.find({});
-    res.status(200).json(products);
-  } catch (error) {
-    res.status(500).json({ message: "Server Error" });
-  }
-});
+router.get("/", ProductController.getAllProducts);
 
-app.get("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const product = await Product.findById(id);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({ message: "Server Error" });
-  }
-});
+router.get("/:id", ProductController.getProductById);
 
-app.put("/api/products/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const product = await Product.findByIdAndUpdate(id, req.body);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-    const updatedProduct = await Product.findById(id);
-    res.status(200).json(updatedProduct);
-  } catch (error) {
-    res.status(500).json({ message: "Server Error" });
-  }
-});
+router.put("/:id", ProductController.updateProduct);
 
-app.delete("/api/products/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const product = await Product.findByIdAndDelete(id);
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-    res.status(200).json({ message: "Product deleted successfully" });
-  } catch (error) {
-    res.status(500).json({ message: "Server Error" });
-  }
-});
+router.delete("/:id", ProductController.deleteProduct);
