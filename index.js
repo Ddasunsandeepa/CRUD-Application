@@ -28,6 +28,19 @@ app.get("/api/products", async (req, res) => {
     res.status(500).json({ message: "Server Error" });
   }
 });
+
+app.get("/api/products/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findById(id);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
+});
 mongoose
   .connect(
     "mongodb+srv://admin_dasun:hiQyvohKuoVYRcwx@backenddb.6plvqrc.mongodb.net/Node-API?retryWrites=true&w=majority&appName=BackendDB"
