@@ -1,6 +1,8 @@
+const express = require("express");
+const router = express.Router();
 const Product = require("./models/productModels.js");
 
-app.post("/api/products", async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     console.log(req.body);
     const product = await Product.create(req.body);
@@ -10,7 +12,7 @@ app.post("/api/products", async (req, res) => {
   }
 });
 
-app.get("/api/products", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     console.log("Get request received");
     const products = await Product.find({});
@@ -20,7 +22,7 @@ app.get("/api/products", async (req, res) => {
   }
 });
 
-app.get("/api/products/:id", async (req, res) => {
+app.get("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const product = await Product.findById(id);
