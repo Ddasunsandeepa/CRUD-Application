@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const Product = require("./models/productModels.js");
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   res.send("Hello From node server");
