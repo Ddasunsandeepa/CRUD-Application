@@ -10,6 +10,13 @@ app.get("/", (req, res) => {
   res.send("Hello From node server");
 });
 
-mongoose.connect(
-  "mongodb+srv://admin_dasun:Dasun@12345@backend.df9r9as.mongodb.net/?retryWrites=true&w=majority&appName=Backend"
-);
+mongoose
+  .connect(
+    "mongodb+srv://admin_dasun:hiQyvohKuoVYRcwx@backenddb.6plvqrc.mongodb.net/Node-API?retryWrites=true&w=majority&appName=BackendDB"
+  )
+  .then(() => {
+    console.log("Database connected successfully");
+  })
+  .catch((err) => {
+    console.log("Database connection failed", err);
+  });
