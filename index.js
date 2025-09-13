@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const ProductRoute = require("./routes/ProductRoute.js");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
