@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
+const Product = require("./models/productModels.js");
 
 app.use(express.json());
 
@@ -8,9 +9,14 @@ app.get("/", (req, res) => {
   res.send("Hello From node server");
 });
 
-app.post("/api/products", (req, res) => {
-  console.log(req.body);
-  res.send(req.body);
+app.post("/api/products", async (req, res) => {
+  try {
+    console.log(req.body);
+    const product = await Product.create(req.body);
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ message: "Server Error" });
+  }
 });
 
 mongoose
